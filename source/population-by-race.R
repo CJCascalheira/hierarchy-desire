@@ -106,4 +106,3 @@ set.seed(1234)
 
 # Sample ten random zip codes
 sample(usa3$zipcode, size = 10)
-

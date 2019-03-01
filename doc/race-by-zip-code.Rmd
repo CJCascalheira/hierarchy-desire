@@ -9,37 +9,118 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 ```
 
 # American Community Survey
 ___
 The United States Census Bureau collects trillions of data points for hundreds of variables in the [American Community Survey](https://www.census.gov/programs-surveys/acs/). The present project, *Hierarchy of Desire*, employed the **2017 ACS 5-year estimates** dataset to locate ethnically-diverse participants by U.S. ZIP code.
 
-Here's how to do it in R.
+Original code written to test this approach evinces selection of ZIP codes using the **2016 ACS 5-year estimates** for New York and the U.S. An preliminary conception of this study proposed an examination of Asian, Black, and White men who have sex with men (MSM) only. As the study progressed, the final social category, Latino, was added. However, the orignal datasets based on **B02001** entail no information about Hispanic or Latino origin. While R code to find the most ethnically dense ZIP codes for all social categories of interest is presented below for **B03002**, the original script for **B02001**, `population-by-race`, is available in the GitHub repository. Note that the `population-by-race` script also includes the code that generated the [random sample of ten ZIP codes](https://osf.io/esxz7/wiki/ZIP%20Codes/).
+
+Let us locate ethnically dense ZIP codes in R.
 
 ## Visit the American Fact Finder
 ___
-An R package, `tidycensus`, provides API access to the ACS if you know the appropriate code. Alternatively, the dataset can be downloaded from the [American Fact Finder](https://factfinder.census.gov/faces/nav/jsf/pages/guided_search.xhtml) using a guided search.
+An R package, `tidycensus`, provides API access to the ACS if you know the appropriate dataset code. Alternatively, the dataset can be downloaded from the [American Fact Finder](https://factfinder.census.gov/faces/nav/jsf/pages/guided_search.xhtml) using a guided search. The latter approach is presented here.
 
 On the **Start** tab, select the first radio button, "I'm looking for information about people."
 
 Do not select anything on the second tab, **Topics**.
 
-Go to **Geographies**. From the dropdown menu, select "5-Digit ZIP code Tabulation Area - 860". Two new area will appear. If you only want the zipcodes of a certain state, select it from the dropdown menu. Otherwise, select "All 5-Digit ZIP Code Tabulation Areas within United States and Puerto Rico". Click **ADD TO YOUR SELECTIONS**.
+Go to **Geographies**. From the dropdown menu, select "5-Digit ZIP code Tabulation Area - 860". Two new selection areas will appear. If you only want the ZIP codes of a certain state, select it from the dropdown menu. Otherwise, select "All 5-Digit ZIP Code Tabulation Areas within United States and Puerto Rico". Click **ADD TO YOUR SELECTIONS**.
 
 On the fourth tab, **Race/Ethnic Groups**, select from basic groups and add "Race/Ethnicity of Individual" to your selections. Click next.
 
 The results page includes two datasets that were used in the present study:
 
 * **RACE - B02001** provides information on the major races in the United States. However, Latinx individuals will be lumped into other ethnic categories.
-* **HISPANIC OR LATINO ORIGIN BY RACE** adds a layer of complexity, dividing the major races into two groups: Latinx or not.
+* **HISPANIC OR LATINO ORIGIN BY RACE** (i.e., **B03002**) adds a layer of complexity, dividing the major races into two groups: Latinx or not.
 
 Choose a dataset. Click download under Actions on the final tab **Table Viewer**. Choose to "Use the data" and uncheck the box "Merge the annotation and data into a single file?" before downloading.
 
 Unzip the file and you're ready to go!
 
-R code to find the most populous ZIP codes for White, Black, Asian, and Latinx individuals is provided below. Alternatively, you can download the scripts from the project repository on the [Open Science Framework](https://osf.io/esxz7/).
+R code to find the most populous ZIP codes for Asian, Black, Latino, and White individuals is provided below. Alternatively, you can download the scripts from the project repository on the [Open Science Framework](https://osf.io/esxz7/) or [Github](https://github.com/corycaaz/hierarchy-desire).
 
 ## ZIP Codes Used in Present Study
 ___
+These data are imported, cleaned, and wrangled within the `tidyverse` framework.
+
+```{r}
+# Load dependency
+library(tidyverse)
+
+# Import data
+zip_codes <- read_csv("../data/ACS_17_5YR_B03002.csv")
+```
+
+Selection of the variables to keep is based on the metadata file:
+
+* **GEO.display-label**, Geography
+* **HD01_VD01**, Estimate; Total:
+* **HD01_VD03**, Estimate; Not Hispanic or Latino: - White alone
+* **HD01_VD04**, Estimate; Not Hispanic or Latino: - Black or African American alone
+* **HD01_VD06**, Estimate; Not Hispanic or Latino: - Asian alone
+* **HD01_VD12**, Estimate; Hispanic or Latino:
+
+```{r}
+(zip_codes2 <- zip_codes %>%
+  select(`GEO.display-label`, HD01_VD01, HD01_VD03, HD01_VD04, HD01_VD06, HD01_VD12))
+```
+
+We drop the first row so that each column contains only one type of atomic vector.
+
+```{r}
+(zip_codes3 <- zip_codes2[-1,])
+```
+
+It is helpful to rename these variables and coerce the population counts into integers instead of characters.
+
+```{r}
+# Clean variable names
+nice_names <- c("zipcodes", "total_pop", "white_pop", "black_pop", "asian_pop", "latino_pop")
+
+# Set variable names
+names(zip_codes3) <- nice_names
+
+# Coerce into integers
+(zip_codes4 <- within(zip_codes3, {
+  total_pop <- as.integer(total_pop)
+  white_pop <- as.integer(white_pop)
+  black_pop <- as.integer(black_pop)
+  asian_pop <- as.integer(asian_pop)
+  latino_pop <- as.integer(latino_pop)
+}))
+```
+
+Now we want to isolate the ZIP codes.
+
+```{r}
+zip_codes4$zipcodes <- str_replace(zip_codes4$zipcodes, "ZCTA5 ", "")
+```
+
+Select the top five ZIP codes with the populous ethnic enclaves.
+
+```{r}
+# White ethnic enclaves
+zip_codes4 %>%
+  arrange(desc(white_pop)) %>%
+  select(zipcodes) %>%
+  head(n = 5)
+
+# Black ethnic enclaves
+zip_codes4 %>% arrange(desc(black_pop)) %>%
+  select(zipcodes) %>%
+  head(n = 5)
+
+# Asian ethnic enclaves
+zip_codes4 %>% arrange(desc(asian_pop)) %>%
+  select(zipcodes) %>%
+  head(n = 5)
+
+# Latino ethnic enclaves
+zip_codes4 %>% arrange(desc(latino_pop)) %>%
+  select(zipcodes) %>%
+  head(n = 5)
+```
