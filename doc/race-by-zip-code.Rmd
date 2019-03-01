@@ -1,0 +1,45 @@
+---
+title: "Race by ZIP Code"
+author: "Cory J. Cascalheira"
+date: "February 10, 2019"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# American Community Survey
+___
+The United States Census Bureau collects trillions of data points for hundreds of variables in the [American Community Survey](https://www.census.gov/programs-surveys/acs/). The present project, *Hierarchy of Desire*, employed the **2017 ACS 5-year estimates** dataset to locate ethnically-diverse participants by U.S. ZIP code.
+
+Here's how to do it in R.
+
+## Visit the American Fact Finder
+___
+An R package, `tidycensus`, provides API access to the ACS if you know the appropriate code. Alternatively, the dataset can be downloaded from the [American Fact Finder](https://factfinder.census.gov/faces/nav/jsf/pages/guided_search.xhtml) using a guided search.
+
+On the **Start** tab, select the first radio button, "I'm looking for information about people."
+
+Do not select anything on the second tab, **Topics**.
+
+Go to **Geographies**. From the dropdown menu, select "5-Digit ZIP code Tabulation Area - 860". Two new area will appear. If you only want the zipcodes of a certain state, select it from the dropdown menu. Otherwise, select "All 5-Digit ZIP Code Tabulation Areas within United States and Puerto Rico". Click **ADD TO YOUR SELECTIONS**.
+
+On the fourth tab, **Race/Ethnic Groups**, select from basic groups and add "Race/Ethnicity of Individual" to your selections. Click next.
+
+The results page includes two datasets that were used in the present study:
+
+* **RACE - B02001** provides information on the major races in the United States. However, Latinx individuals will be lumped into other ethnic categories.
+* **HISPANIC OR LATINO ORIGIN BY RACE** adds a layer of complexity, dividing the major races into two groups: Latinx or not.
+
+Choose a dataset. Click download under Actions on the final tab **Table Viewer**. Choose to "Use the data" and uncheck the box "Merge the annotation and data into a single file?" before downloading.
+
+Unzip the file and you're ready to go!
+
+R code to find the most populous ZIP codes for White, Black, Asian, and Latinx individuals is provided below. Alternatively, you can download the scripts from the project repository on the [Open Science Framework](https://osf.io/esxz7/).
+
+## ZIP Codes Used in Present Study
+___
