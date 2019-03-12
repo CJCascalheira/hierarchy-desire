@@ -250,85 +250,105 @@ $(document).ready(function () {
 <div id="dummy-choice-variables" class="section level2">
 <h2>Dummy Choice Variables</h2>
 <hr />
+<p>Some questions allowed participants to select more than one answer. <em>SurveyMonkey</em> coded each answer choice as a separate variable. If a participant selected the choice, then the response was recorded for that observation. Otherwise, the value was missing.</p>
+<p>All missing categorical values, <code>NA</code>, were replaced with the character string <code>&quot;none&quot;</code>.</p>
 <p><strong>General</strong></p>
 <ol style="list-style-type: decimal">
 <li><strong>id</strong>: participant identification</li>
 </ol>
 <p><strong>Past App Use</strong></p>
 <ol start="2" style="list-style-type: decimal">
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
-<li>****:</li>
+<li><strong>pa_a4a</strong>: Adam4Adam</li>
+<li><strong>pa_dh</strong>: Daddyhunt</li>
+<li><strong>pa_dsc</strong>: DISCO</li>
+<li><strong>pa_grdr</strong>: Grindr</li>
+<li><strong>pa_grzz</strong>: Grizzly</li>
+<li><strong>pa_grwl</strong>: Growlr</li>
+<li><strong>pa_hrnt</strong>: Hornet</li>
+<li><strong>pa_jckd</strong>: Jack’d</li>
+<li><strong>pa_okc</strong>: OkCupid</li>
+<li><strong>pa_scf</strong>: Scruff</li>
+<li><strong>pa_srg</strong>: Surge</li>
+<li><strong>pa_tdr</strong>: Tinder</li>
+<li><strong>pa_other</strong>: Some other app</li>
+</ol>
+<p><strong>Current App Use</strong></p>
+<ol start="15" style="list-style-type: decimal">
+<li><strong>ca_a4a</strong>: Adam4Adam</li>
+<li><strong>ca_dh</strong>: Daddyhunt</li>
+<li><strong>ca_dsc</strong>: DISCO</li>
+<li><strong>ca_grdr</strong>: Grindr</li>
+<li><strong>ca_grzz</strong>: Grizzly</li>
+<li><strong>ca_grwl</strong>: Growlr</li>
+<li><strong>ca_hrnt</strong>: Hornet</li>
+<li><strong>ca_jckd</strong>: Jack’d</li>
+<li><strong>ca_okc</strong>: OkCupid</li>
+<li><strong>ca_scf</strong>: Scruff</li>
+<li><strong>ca_srg</strong>: Surge</li>
+<li><strong>ca_tdr</strong>: Tinder</li>
+<li><strong>ca_other</strong>: Some other app</li>
+<li><strong>ca_none</strong>: Not using an app</li>
+</ol>
+<p><strong>Hidden Information</strong></p>
+<ol start="29" style="list-style-type: decimal">
+<li><strong>hi_profpic</strong>: profile picture</li>
+<li><strong>hi_age</strong>: age</li>
+<li><strong>hi_body</strong>: body type</li>
+<li><strong>hi_ethnty</strong>: ethnicity</li>
+<li><strong>hi_sexpost</strong>: sexual position</li>
+<li><strong>hi_none</strong>: none, don’t hide anything</li>
+</ol>
+<p><strong>Free Choice Image Selection Cluster 1</strong></p>
+<ol start="35" style="list-style-type: decimal">
+<li><strong>black-hm-03</strong>: Black heteronormative picture 03</li>
+<li><strong>latino-em-03</strong>: Latino effeminate picture 03</li>
+<li><strong>black-hm-02</strong>: Black heteronormative picture 02</li>
+<li><strong>asian-hm-04</strong>: Asian heteronormative picture 04</li>
+<li><strong>asian-em-04</strong>: Asian effeminate picture 04</li>
+<li><strong>white-hm-04</strong>: White heteronormative picture 04</li>
+<li><strong>black-em-05</strong>: Black effeminate picture 05</li>
+<li><strong>asian-em-03</strong>: Asian effeminate picture 03</li>
+<li><strong>latino-hm-01</strong>: Latino heteronormative picture 01</li>
+<li><strong>black-em-01</strong>: Black effeminate picture 01</li>
+</ol>
+<p><strong>Free Choice Image Selection Cluster 2</strong></p>
+<ol start="45" style="list-style-type: decimal">
+<li><strong>white-em-05</strong>: White effeminate picture 05</li>
+<li><strong>white-hm-03</strong>: White heteronormative picture 03</li>
+<li><strong>black-hm-05</strong>: Black heteronormative picture 05</li>
+<li><strong>black-em-02</strong>: Black effeminate picture 02</li>
+<li><strong>white-hm-02</strong>: White heteronormative picture 02</li>
+<li><strong>black-hm-04</strong>: Black heteronormative picture 04</li>
+<li><strong>white-em-01</strong>: White effeminate picture 01</li>
+<li><strong>black-em-03</strong>: Black effeminate picture 03</li>
+<li><strong>white-em-03</strong>: White effeminate picture 03</li>
+<li><strong>asian-hm-02</strong>: Asian heteronormative picture 02</li>
+</ol>
+<p><strong>Free Choice Image Selection Cluster 3</strong></p>
+<ol start="55" style="list-style-type: decimal">
+<li><strong>asian-hm-05</strong>: Asian heteronormative picture 05</li>
+<li><strong>latino-em-01</strong>: Latino effeminate picture 01</li>
+<li><strong>latino-em-04</strong>: Latino effeminate picture 04</li>
+<li><strong>asian-em-02</strong>: Asian effeminate picture 02</li>
+<li><strong>black-hm-01</strong>: Black heteronormative picture 01</li>
+<li><strong>asian-em-01</strong>: Asian effeminate picture 01</li>
+<li><strong>latino-hm-02</strong>: Latino heteronormative picture 02</li>
+<li><strong>white-em-02</strong>: White effeminate picture 02</li>
+<li><strong>white-hm-01</strong>: White heteronormative picture 01</li>
+<li><strong>latino-hm-05</strong>: Latino heteronormative picture 05</li>
+</ol>
+<p><strong>Free Choice Image Selection Cluster 4</strong></p>
+<ol start="65" style="list-style-type: decimal">
+<li><strong>latino-em-05</strong>: Latino effeminate picture 05</li>
+<li><strong>white-hm-05</strong>: White heteronormative picture 05</li>
+<li><strong>latino-hm-04</strong>: Latino heteronormative picture 04</li>
+<li><strong>latino-hm-03</strong>: Latino heteronormative picture 03</li>
+<li><strong>asian-em-05</strong>: Asian effeminate picture 05</li>
+<li><strong>asian-hm-01</strong>: Asian heteronormative picture 01</li>
+<li><strong>black-em-04</strong>: Black effeminate picture 04</li>
+<li><strong>latino-em-02</strong>: Latino effeminate picture 02</li>
+<li><strong>asian-hm-03</strong>: Asian heteronormative picture 03</li>
+<li><strong>white-em-04</strong>: White effeminate picture 04</li>
 </ol>
 </div>
 </div>

@@ -66,6 +66,9 @@ Some questions required participants to choose only one response and were coded 
 
 ## Dummy Choice Variables
 ___
+Some questions allowed participants to select more than one answer. *SurveyMonkey* coded each answer choice as a separate variable. If a participant selected the choice, then the response was recorded for that observation. Otherwise, the value was missing. 
+
+All missing categorical values, `NA`, were replaced with the character string `"none"`.
 
 **General**
 
@@ -73,76 +76,94 @@ ___
 
 **Past App Use**
 
-2. ****:
-3. ****:
-4. ****:
-5. ****:
-6. ****:
-7. ****:
-8. ****:
-9. ****:
-10. ****:
-11. ****:
-12. ****:
-13. ****:
-14. ****:
-15. ****:
-16. ****:
-17. ****:
-18. ****:
-19. ****:
-20. ****:
-21. ****:
-22. ****:
-23. ****:
-24. ****:
-25. ****:
-26. ****:
-27. ****:
-28. ****:
-29. ****:
-30. ****:
-31. ****:
-32. ****:
-33. ****:
-34. ****:
-35. ****:
-36. ****:
-37. ****:
-38. ****:
-39. ****:
-40. ****:
-41. ****:
-42. ****:
-43. ****:
-44. ****:
-45. ****:
-46. ****:
-47. ****:
-48. ****:
-49. ****:
-50. ****:
-51. ****:
-52. ****:
-53. ****:
-54. ****:
-55. ****:
-56. ****:
-57. ****:
-58. ****:
-59. ****:
-60. ****:
-61. ****:
-62. ****:
-63. ****:
-64. ****:
-65. ****:
-66. ****:
-67. ****:
-68. ****:
-69. ****:
-70. ****:
-71. ****:
-72. ****:
-73. ****:
-74. ****:
+2. **pa_a4a**: Adam4Adam
+3. **pa_dh**: Daddyhunt
+4. **pa_dsc**: DISCO
+5. **pa_grdr**: Grindr
+6. **pa_grzz**: Grizzly
+7. **pa_grwl**: Growlr
+8. **pa_hrnt**: Hornet
+9. **pa_jckd**: Jack'd
+10. **pa_okc**: OkCupid
+11. **pa_scf**: Scruff
+12. **pa_srg**: Surge
+13. **pa_tdr**: Tinder
+14. **pa_other**: Some other app
+
+**Current App Use**
+
+15. **ca_a4a**: Adam4Adam
+16. **ca_dh**: Daddyhunt
+17. **ca_dsc**: DISCO
+18. **ca_grdr**: Grindr
+19. **ca_grzz**: Grizzly
+20. **ca_grwl**: Growlr
+21. **ca_hrnt**: Hornet
+22. **ca_jckd**: Jack'd
+23. **ca_okc**: OkCupid
+24. **ca_scf**: Scruff
+25. **ca_srg**: Surge
+26. **ca_tdr**: Tinder
+27. **ca_other**: Some other app
+28. **ca_none**: Not using an app
+
+**Hidden Information**
+
+29. **hi_profpic**: profile picture
+30. **hi_age**: age
+31. **hi_body**: body type
+32. **hi_ethnty**: ethnicity
+33. **hi_sexpost**: sexual position
+34. **hi_none**: none, don't hide anything
+
+**Free Choice Image Selection Cluster 1**
+
+35. **black-hm-03**: Black heteronormative picture 03
+36. **latino-em-03**: Latino effeminate picture 03
+37. **black-hm-02**: Black heteronormative picture 02
+38. **asian-hm-04**: Asian heteronormative picture 04
+39. **asian-em-04**: Asian effeminate picture 04
+40. **white-hm-04**: White heteronormative picture 04
+41. **black-em-05**: Black effeminate picture 05
+42. **asian-em-03**: Asian effeminate picture 03
+43. **latino-hm-01**: Latino heteronormative picture 01
+44. **black-em-01**: Black effeminate picture 01
+
+**Free Choice Image Selection Cluster 2**
+
+45. **white-em-05**: White effeminate picture 05
+46. **white-hm-03**: White heteronormative picture 03
+47. **black-hm-05**: Black heteronormative picture 05
+48. **black-em-02**: Black effeminate picture 02
+49. **white-hm-02**: White heteronormative picture 02
+50. **black-hm-04**: Black heteronormative picture 04
+51. **white-em-01**: White effeminate picture 01
+52. **black-em-03**: Black effeminate picture 03
+53. **white-em-03**: White effeminate picture 03
+54. **asian-hm-02**: Asian heteronormative picture 02
+
+**Free Choice Image Selection Cluster 3**
+
+55. **asian-hm-05**: Asian heteronormative picture 05
+56. **latino-em-01**: Latino effeminate picture 01
+57. **latino-em-04**: Latino effeminate picture 04
+58. **asian-em-02**: Asian effeminate picture 02
+59. **black-hm-01**: Black heteronormative picture 01
+60. **asian-em-01**: Asian effeminate picture 01
+61. **latino-hm-02**: Latino heteronormative picture 02
+62. **white-em-02**: White effeminate picture 02
+63. **white-hm-01**: White heteronormative picture 01
+64. **latino-hm-05**: Latino heteronormative picture 05
+
+**Free Choice Image Selection Cluster 4**
+
+65. **latino-em-05**: Latino effeminate picture 05
+66. **white-hm-05**: White heteronormative picture 05
+67. **latino-hm-04**: Latino heteronormative picture 04
+68. **latino-hm-03**: Latino heteronormative picture 03
+69. **asian-em-05**: Asian effeminate picture 05
+70. **asian-hm-01**: Asian heteronormative picture 01
+71. **black-em-04**: Black effeminate picture 04
+72. **latino-em-02**: Latino effeminate picture 02
+73. **asian-hm-03**: Asian heteronormative picture 03
+74. **white-em-04**: White effeminate picture 04
