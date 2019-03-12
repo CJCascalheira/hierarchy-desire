@@ -1,0 +1,148 @@
+---
+title: "Survey Codes for Variables"
+author: "Cory J. Cascalheira"
+date: "March 11, 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Understanding the Variables
+___
+The *Initial Attraction Online* survey was downloaded as a CSV.
+
+*SurveyMonkey* returned a wide, untidy file with dummy variables and many missing values. During pre-processing, the data were split into two data frames, variables were assigned names, and image selection were linked to their filename.
+
+## Radio Button Variables
+___
+Some questions required participants to choose only one response and were coded as follows:
+
+**General Variables**
+
+1. **id**: participant identification
+2. **start**: starting datetime of the survey
+3. **end**: ending datetime of the survey
+4. **consent**: did participant agree to participate?
+
+**Demographics**
+
+5. **sex_orient**: sexual orientation
+6. **gender**: gender identity
+7. **single**: relationship status
+8. **out**: disclosure of sexual orientation
+9. **pic**: content of public-facing profile picture
+10. **age**: age
+11. **body**: physical appearance of body
+12. **ethnicity**: ethnicity
+13. **sex_position**: sexual position 
+
+**Social Identity Scale**
+
+14. **si_popular**: "My popularity with other guys, their willingness to chat with or meet me"
+15. **si_racialgrp**: "My sense of belonging to my own racial group"
+16. **si_react**: "The ways in which other people react to what I say and do"
+17. **si_appearance**: "My physical appearance: my height, my weight, and the shape of my body"
+18. **si_masc**: "My masculinity, how manly others think I am"
+19. **si_reputation**: "My reputation, what others think of me"
+20. **si_attractive**: "My attractiveness to other guys"
+21. **si_skincolor**: "The color of my skin"
+22. **si_gestures**: "My gestures and mannerisms, whether others can tell if I am gay"
+23. **si_socialbhvr**: "My social behavior, such as the way I act when meeting other men"
+
+**Forced Choice Image Selection**
+
+24. **fc_1**: white-em-01, black-em-03, white-em-03, asian-hm-02
+25. **fc_2**: black-hm-05, black-em-02, white-hm-02, black-hm-04
+26. **fc_3**: latino-hm-01, black-em-01, white-em-05, white-hm-03
+27. **fc_4**: asian-em-04, white-hm-04, black-em-05, asian-em-03
+28. **fc_5**: black-hm-03, latino-em-03, black-hm-02, asian-hm-04
+29. **fc_6**: black-em-04, latino-em-02, asian-hm-03, white-em-04
+30. **fc_7**: latino-hm-04, latino-hm-03, asian-em-05, asian-hm-01
+31. **fc_8**: white-hm-01, latino-hm-05, latino-em-05, white-hm-05
+32. **fc_9**: black-hm-01, asian-em-01, latino-hm-02, white-em-02
+33. **fc_10**: asian-hm-05, latino-em-01, latino-em-04, asian-em-02
+
+## Dummy Choice Variables
+___
+
+**General**
+
+1. **id**: participant identification
+
+**Past App Use**
+
+2. ****:
+3. ****:
+4. ****:
+5. ****:
+6. ****:
+7. ****:
+8. ****:
+9. ****:
+10. ****:
+11. ****:
+12. ****:
+13. ****:
+14. ****:
+15. ****:
+16. ****:
+17. ****:
+18. ****:
+19. ****:
+20. ****:
+21. ****:
+22. ****:
+23. ****:
+24. ****:
+25. ****:
+26. ****:
+27. ****:
+28. ****:
+29. ****:
+30. ****:
+31. ****:
+32. ****:
+33. ****:
+34. ****:
+35. ****:
+36. ****:
+37. ****:
+38. ****:
+39. ****:
+40. ****:
+41. ****:
+42. ****:
+43. ****:
+44. ****:
+45. ****:
+46. ****:
+47. ****:
+48. ****:
+49. ****:
+50. ****:
+51. ****:
+52. ****:
+53. ****:
+54. ****:
+55. ****:
+56. ****:
+57. ****:
+58. ****:
+59. ****:
+60. ****:
+61. ****:
+62. ****:
+63. ****:
+64. ****:
+65. ****:
+66. ****:
+67. ****:
+68. ****:
+69. ****:
+70. ****:
+71. ****:
+72. ****:
+73. ****:
+74. ****:
