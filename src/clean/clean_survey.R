@@ -40,7 +40,7 @@ dummy_clean <- c("id", "pa_a4a", "pa_dh", "pa_dsc", "pa_grdr", "pa_grzz", "pa_gr
 names(survey_radio) <- radio_clean
 names(survey_dummy) <- dummy_clean
 
-# REMOVE NO CONSENT & NA --------------------------------------------------
+# REMOVE NO CONSENT & INCOMPLETE ------------------------------------------
 
 # No consent
 no_consent <- survey_radio %>%
@@ -48,5 +48,78 @@ no_consent <- survey_radio %>%
   select(id) %>%
   pull()
 
-# Incomplete surveys
-which(is.na(su))
+# Remove non-consenting participants from analysis
+survey_radio2 <- survey_radio %>%
+  filter(!c(id %in% no_consent))
+
+survey_dummy2 <- survey_dummy %>%
+  filter(!c(id %in% no_consent))
+
+# Missing response for forced choice image selection 10
+no_fc_10 <- which(is.na(survey_radio2$fc_10))
+
+# Which participants did not answer fc_10?
+incomplete <- survey_radio2[no_fc_10, ] %>%
+  select(id) %>%
+  pull()
+
+# Remove incomplete observations
+survey_radio3 <- survey_radio2 %>%
+  filter(!c(id %in% incomplete))
+
+survey_dummy3 <- survey_dummy2 %>%
+  filter(!c(id %in% incomplete))
+
+# Are all incomplete observations removed?
+map(survey_radio3, is.na) %>%
+  map(sum) %>%
+  bind_rows() %>%
+  rowSums()
+
+# MISSING VALUES & RECODING VALUES ----------------------------------------
+
+# Replace all missing values across all variables
+survey_dummy4 <- survey_dummy3 %>%
+  replace(., is.na(.), "none")
+
+# Replace all Image X with photo names
+for (i in 35:74) {
+  survey_dummy4[i] <- str_replace(string = survey_dummy4[i] %>% pull(),
+                                  pattern = "^([a-zA-Z]{5}[:blank:]*[:digit:]*)",
+                                  replacement = names(survey_dummy4)[i])
+}
+
+# Subset id for datetimes
+no_seconds <- survey_radio3[c(1:58, 265:354), ] %>%
+  select(id) %>%
+  pull()
+
+yes_seconds <- survey_radio3[-c(1:58, 265:354), ] %>%
+  select(id) %>%
+  pull()
+
+# Convert to datetimes
+dttm_no <- survey_radio3 %>%
+  filter(id %in% no_seconds) %>%
+  mutate(start = mdy_hm(start),
+         end = mdy_hm(end)) %>%
+  select(1:3)
+
+dttm_yes <- survey_radio3 %>%
+  filter(id %in% yes_seconds) %>%
+  mutate(start = mdy_hms(start),
+         end = mdy_hms(end)) %>%
+  select(1:3)
+
+# Merge dttm data frames
+dttm_both <- bind_rows(dttm_no, dttm_yes)
+
+# Join datetimes to data frame
+survey_radio4 <- survey_radio3 %>%
+  select(-c(2:3)) %>%
+  left_join(dttm_both, by = "id") %>%
+  select("id", "start", "end", everything())
+
+# Convert variables to factors
+survey_radio4[c(5:9, 11:33)] <- map_df(survey_radio3[c(5:9, 11:33)], factor)
+
