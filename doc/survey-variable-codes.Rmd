@@ -167,3 +167,15 @@ All missing categorical values, `NA`, were replaced with the character string `"
 72. **latino-em-02**: Latino effeminate picture 02
 73. **asian-hm-03**: Asian heteronormative picture 03
 74. **white-em-04**: White effeminate picture 04
+
+# Recoding Social Identity Scale
+___
+A technical problem prevented the social identity variables from being recoded with `fct_recode`, `dplyr::recode`, and `car::recode`. Thus, a rather sloppy workaround was used.
+
+First, I took note of the default ordering of factor levels. When coerced to numeric, the ordering did not abide by the appropriate Likert-type scale. For example, the high-anchor *extremely important to my sense of who I am* should have be coded as a `5`, but alphabetical ordering coded this option as a `1`. Manual recoding was necessary.
+
+1. "Extremely important to my sense of who I am" = **5**
+2. "Not important to my sense of who I am" = **1**
+3. "Slightly important to my sense of who I am" = **2**
+4. "Somewhat important to my sense of who I am" = **3**
+5. "Very important to my sense of who I am" = **4**

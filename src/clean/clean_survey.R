@@ -1,5 +1,6 @@
 # Dependencies
 library(tidyverse)
+library(lubridate)
 
 # Import raw data
 survey <- read_csv("data/raw/initial-attraction-online.csv")
@@ -78,6 +79,9 @@ map(survey_radio3, is.na) %>%
 
 # MISSING VALUES & RECODING VALUES ----------------------------------------
 
+# Prepare new data frame
+survey_radio4 <- survey_radio3
+
 # Replace all missing values across all variables
 survey_dummy4 <- survey_dummy3 %>%
   replace(., is.na(.), "none")
@@ -123,3 +127,70 @@ survey_radio4 <- survey_radio3 %>%
 # Convert variables to factors
 survey_radio4[c(5:9, 11:33)] <- map_df(survey_radio3[c(5:9, 11:33)], factor)
 
+# Recode factors
+survey_radio4 <- within(survey_radio4, {
+  gender <- fct_recode(gender, Man = "Cisgender man")
+  single <- fct_recode(single, Relationship = "In a relationship")
+  si_popular <- recode(as.numeric(si_popular), `5` = 4, `4` = 3, `3` = 2, `2` = 1, `1` = 5)
+  si_racialgrp <- recode(as.numeric(si_racialgrp), `5` = 4, `4` = 3, `3` = 2, `2` = 1, `1` = 5)
+  si_react <- recode(as.numeric(si_react), `5` = 4, `4` = 3, `3` = 2, `2` = 1, `1` = 5)
+  si_appearance <- recode(as.numeric(si_appearance), `5` = 4, `4` = 3, `3` = 2, `2` = 1, `1` = 5)
+  si_masc <- recode(as.numeric(si_masc), `5` = 4, `4` = 3, `3` = 2, `2` = 1, `1` = 5)
+  si_reputation <- recode(as.numeric(si_reputation), `5` = 4, `4` = 3, `3` = 2, `2` = 1, `1` = 5)
+  si_attractive <- recode(as.numeric(si_attractive), `5` = 4, `4` = 3, `3` = 2, `2` = 1, `1` = 5)
+  si_skincolor <- recode(as.numeric(si_skincolor), `5` = 4, `4` = 3, `3` = 2, `2` = 1, `1` = 5)
+  si_gestures <- recode(as.numeric(si_gestures), `5` = 4, `4` = 3, `3` = 2, `2` = 1, `1` = 5)
+  si_socialbhvr <- recode(as.numeric(si_socialbhvr), `5` = 4, `4` = 3, `3` = 2, `2` = 1, `1` = 5)
+  fc_1 <- fct_recode(fc_1, "white-em-01" = "Image 1",
+                     "black-em-03" = "Image 2",
+                     "white-em-03" = "Image 3",
+                     "asian-hm-02" = "Image 4")
+  fc_2 <- fct_recode(fc_2, "black-hm-05" = "Image 1",
+                     "black-em-02" = "Image 2",
+                     "white-hm-02" = "Image 3",
+                     "black-hm-04" = "Image 4")
+  fc_3 <- fct_recode(fc_3, "latino-hm-01" = "Image 1",
+                     "black-em-01" = "Image 2",
+                     "white-em-05" = "Image 3",
+                     "white-hm-03" = "Image 4")
+  fc_4 <- fct_recode(fc_4, "asian-em-04" = "Image 1",
+                     "white-hm-04" = "Image 2",
+                     "black-em-05" = "Image 3",
+                     "asian-em-03" = "Image 4")
+  fc_5 <- fct_recode(fc_5, "black-hm-03" = "Image 1",
+                     "latino-em-03" = "Image 2",
+                     "black-hm-02" = "Image 3",
+                     "asian-hm-04" = "Image 4")
+  fc_6 <- fct_recode(fc_6, "black-em-04" = "Image 1",
+                     "latino-em-02" = "Image 2",
+                     "asian-hm-03" = "Image 3",
+                     "white-em-04" = "Image 4")
+  fc_7 <- fct_recode(fc_7, "latino-hm-04" = "Image 1",
+                     "latino-hm-03" = "Image 2",
+                     "asian-em-05" = "Image 3",
+                     "asian-hm-01" = "Image 4")
+  fc_8 <- fct_recode(fc_8, "white-hm-01" = "Image 1",
+                     "latino-hm-05" = "Image 2",
+                     "latino-em-05" = "Image 3",
+                     "white-hm-05" = "Image 4")
+  fc_9 <- fct_recode(fc_9, "black-hm-01" = "Image 1",
+                     "asian-em-01" = "Image 2",
+                     "latino-hm-02" = "Image 3",
+                     "white-em-02" = "Image 4")
+  fc_10 <- fct_recode(fc_10, "asian-hm-05" = "Image 1",
+                      "latino-em-01" = "Image 2",
+                      "latino-em-04" = "Image 3",
+                      "asian-em-02" = "Image 4")
+})
+
+# Coerce age to integer
+survey_radio4 <- survey_radio4 %>%
+  mutate(age = as.integer(age))
+
+# EXPORT DATA -------------------------------------------------------------
+
+# Save forced response to file
+write_csv(survey_radio4, path = "data/forced_response.csv")
+
+# Save free response to file
+write_csv(survey_dummy4, path = "data/free_response.csv")

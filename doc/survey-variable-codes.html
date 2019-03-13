@@ -352,6 +352,19 @@ $(document).ready(function () {
 </ol>
 </div>
 </div>
+<div id="recoding-social-identity-scale" class="section level1">
+<h1>Recoding Social Identity Scale</h1>
+<hr />
+<p>A technical problem prevented the social identity variables from being recoded with <code>fct_recode</code>, <code>dplyr::recode</code>, and <code>car::recode</code>. Thus, a rather sloppy workaround was used.</p>
+<p>First, I took note of the default ordering of factor levels. When coerced to numeric, the ordering did not abide by the appropriate Likert-type scale. For example, the high-anchor <em>extremely important to my sense of who I am</em> should have be coded as a <code>5</code>, but alphabetical ordering coded this option as a <code>1</code>. Manual recoding was necessary.</p>
+<ol style="list-style-type: decimal">
+<li>“Extremely important to my sense of who I am” = <strong>5</strong></li>
+<li>“Not important to my sense of who I am” = <strong>1</strong></li>
+<li>“Slightly important to my sense of who I am” = <strong>2</strong></li>
+<li>“Somewhat important to my sense of who I am” = <strong>3</strong></li>
+<li>“Very important to my sense of who I am” = <strong>4</strong></li>
+</ol>
+</div>
 
 
 
