@@ -1,6 +1,5 @@
 # Dependencies
 library(tidyverse)
-library(ez)
 
 # Import
 forced <- read_csv("data/forced_response.csv")
@@ -53,10 +52,6 @@ table(h3_df_forced$photo_ethnicity, h3_df_forced$msm_ethnicity)
 table(h3_df_free$photo_ethnicity, h3_df_free$msm_ethnicity)
 
 # HYPOTHESIS 4 ------------------------------------------------------------
-
-forced
-
-# HYPOTHESIS 5 ------------------------------------------------------------
 
 
 # HYPOTHESIS 7 ------------------------------------------------------------
