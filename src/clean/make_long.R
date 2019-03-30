@@ -24,8 +24,29 @@ forced_long2 <- str_split_fixed(string = forced_long$fc_selection,
   select("id", "fc_question", "fc_selection",
          "ethnicity" = "V1", "masculinity" = "V2")
 
+# Prepare for export 
+forced_long3 <- forced_long2 %>%
+  # Create continuous dependent variable
+  count(id, ethnicity, masculinity) %>%
+  # Make levels even
+  spread(key = ethnicity, value = n) %>%
+  gather(key = ethnicity, value = n, -c(id, masculinity)) %>%
+  spread(key = masculinity, value = n) %>%
+  gather(key = masculinity, value = n, -c(id, ethnicity)) %>%
+  # Are the variables even?
+  arrange(id, ethnicity) %>%
+  mutate(
+    # Replace missing values with zero
+    n = replace(n, is.na(n), 0),
+    # Create factors
+    ethnicity = factor(ethnicity),
+    masculinity = factor(masculinity),
+    # Name the response type
+    response = rep("forced", n = nrow(forced_long2))
+  )
+
 # Save long format for forced responses
-write_csv(forced_long2, path = "data/forced_long.csv")
+write_csv(forced_long3, path = "data/forced_long.csv")
 
 # SPLIT IMAGE NAMES: FREE RESPONSE ----------------------------------------
 
@@ -46,5 +67,27 @@ free_long2 <- str_split_fixed(string = free_long$choice,
   select("id", "choice",
          "ethnicity" = "V1", "masculinity" = "V2")
 
+# Prepare for export
+free_long3 <- free_long2 %>%
+  # Create continuous dependent variable
+  count(id, ethnicity, masculinity) %>%
+  # Make levels even
+  spread(key = ethnicity, value = n) %>%
+  gather(key = ethnicity, value = n, -c(id, masculinity)) %>%
+  spread(key = masculinity, value = n) %>%
+  gather(key = masculinity, value = n, -c(id, ethnicity)) %>%
+  # Are the variables even?
+  arrange(id, ethnicity) %>%
+  mutate(
+    # Replace missing values with zero
+    n = replace(n, is.na(n), 0),
+    # Create factors
+    ethnicity = factor(ethnicity),
+    masculinity = factor(masculinity),
+    # Name the response type
+    response = rep("free", n = nrow(free_long2))
+  )
+
 # Save long format for free responses
-write_csv(free_long2, path = "data/free_long.csv")
+write_csv(free_long3, path = "data/free_long.csv")
+

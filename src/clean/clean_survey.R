@@ -66,16 +66,50 @@ incomplete <- survey_radio2[no_fc_10, ] %>%
 
 # Remove incomplete observations
 survey_radio3 <- survey_radio2 %>%
-  filter(!c(id %in% incomplete))
+  filter(!(id %in% incomplete))
 
 survey_dummy3 <- survey_dummy2 %>%
-  filter(!c(id %in% incomplete))
+  filter(!(id %in% incomplete))
+
+# Are any responses missing entirely from the final, free response section?
+complete <- survey_dummy3[, c(1, 35:74)] %>%
+  gather(key = photo, value = choice, -id) %>%
+  filter(!(choice %in% c("Image 1", "Image 2", "Image 3", "Image 4", "Image 5",
+                         "Image 6", "Image 7", "Image 8", "Image 9", "Image 10"))) %>%
+  mutate(choice = replace(choice, is.na(choice), "none")) %>%
+  spread(key = photo, value = choice) %>%
+  gather(key = photo, value = choice, -id) %>%
+  filter(is.na(choice)) %>%
+  mutate(choice = replace(choice, is.na(choice), "none")) %>%
+  spread(key = photo, value = choice) %>%
+  select(id) %>%
+  pull()
 
 # Are all incomplete observations removed?
 map(survey_radio3, is.na) %>%
   map(sum) %>%
   bind_rows() %>%
   rowSums()
+
+survey_dummy3[, c(1, 35:74)] %>%
+  filter(!(id %in% complete)) %>%
+  View()
+
+# Participants who did not complete free response section
+incomplete2 <- survey_dummy3[, c(1, 35:74)] %>%
+  filter(!(id %in% complete)) %>%
+  select(id) %>%
+  pull()
+
+# Remove remaining incomplete observations
+survey_radio3 <- survey_radio3 %>%
+  filter(!(id %in% incomplete2))
+
+survey_dummy3 <- survey_dummy3 %>%
+  filter(!(id %in% incomplete2))
+
+# Equal identification?
+identical(survey_radio3$id, survey_dummy3$id)
 
 # MISSING VALUES & RECODING VALUES ----------------------------------------
 
@@ -94,11 +128,11 @@ for (i in 35:74) {
 }
 
 # Subset id for datetimes
-no_seconds <- survey_radio3[c(1:58, 265:354), ] %>%
+no_seconds <- survey_radio3[c(1:56, 261:348), ] %>%
   select(id) %>%
   pull()
 
-yes_seconds <- survey_radio3[-c(1:58, 265:354), ] %>%
+yes_seconds <- survey_radio3[-c(1:56, 261:348), ] %>%
   select(id) %>%
   pull()
 
