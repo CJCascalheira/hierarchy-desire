@@ -4,6 +4,18 @@ library(tidyverse)
 # Import
 forced_long <- read_csv("data/forced_long.csv")
 free_long <- read_csv("data/free_long.csv")
+forced <- read_csv("data/forced_response.csv")
+
+# Collapse Asian and South Asian, non-theoretically relevant ethnicities
+forced <- within(forced, {
+  ethnicity <- recode(ethnicity, "South Asian" = "Asian",
+                      "Middle Eastern" = "Other", "Mixed" = "Other",
+                      "Native American" = "Other")
+})
+
+# Participant ethnicity
+ethnic <- forced %>%
+  select(id, participant_ethnic = ethnicity)
 
 # FORCED WIDE -------------------------------------------------------------
 
@@ -22,7 +34,8 @@ for_hm <- forced_long[, -5] %>%
          white_hm = white)
 
 # Combine
-forced_wide <- left_join(for_em, for_hm, by = "id")
+forced_wide <- left_join(for_em, for_hm, by = "id") %>%
+  left_join(ethnic, by = "id")
 
 # Save as CSV
 write_csv(forced_wide, path = "data/forced_wide.csv")
@@ -44,7 +57,8 @@ fre_hm <- free_long[, -5] %>%
          white_hm = white)
 
 # Combine
-free_wide <- left_join(fre_em, fre_hm, by = "id")
+free_wide <- left_join(fre_em, fre_hm, by = "id") %>%
+  left_join(ethnic, by = "id")
 
 # Save as CSV
 write_csv(free_wide, path = "data/free_wide.csv")

@@ -8,9 +8,9 @@ forced <- read_csv("data/forced_response.csv")
 
 # Collapse Asian and South Asian, non-theoretically relevant ethnicities
 forced <- within(forced, {
-  ethnicity <- recode(ethnicity, "South Asian" = "Asian",
-                      "Middle Eastern" = "Other", "Mixed" = "Other",
-                      "Native American" = "Other")
+  ethnicity <- dplyr::recode(ethnicity, "South Asian" = "Asian",
+                             "Middle Eastern" = "Other", "Mixed" = "Other",
+                             "Native American" = "Other")
 })
 
 # Default theme
@@ -80,7 +80,9 @@ apa_theme <- theme_bw() +
         panel.border = element_blank(),
         axis.line = element_line(),
         plot.title = element_text(hjust = 0.5),
-        text = element_text(size = 12, family = "serif"))
+        text = element_text(size = 12, family = "serif"),
+        axis.text.x = element_text(size = 12, color = "black"),
+        axis.text.y = element_text(color = "black"))
 
 # Visualize the plot
 figure_hypothesis_5 <- ggplot(si_and_ethnicity, aes(x = ethnicity, y = si_score)) +
