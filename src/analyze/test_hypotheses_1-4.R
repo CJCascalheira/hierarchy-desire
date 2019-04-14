@@ -15,8 +15,9 @@ forced <- within(forced, {
                       "Native American" = "Other")
 })
 
-# Set default theme
+# Set defaults
 theme_set(theme_minimal())
+options(scipen = 999)
 
 # HYPOTHESIS 1 ------------------------------------------------------------
 
@@ -135,7 +136,7 @@ pairwise.t.test(free_long1$n, free_long1$masculinity, paired = TRUE)
 free_long1 %>%
   group_by(ethnicity, masculinity) %>%
   summarize(M = mean(n),
-            SD = sd(n))
+            SD = sd(n)) %>%
   arrange(desc(M)) 
 
 # Significant?
@@ -143,17 +144,6 @@ pairwise.t.test(free_long1$n,
                 interaction(free_long1$ethnicity, free_long1$masculinity),
                 paired = TRUE,
                 p.adjust.method = "bonferroni")
-
-# Construct the APA theme
-apa_theme <- theme_bw() +
-  theme(panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
-        panel.border = element_blank(),
-        axis.line = element_line(),
-        plot.title = element_text(hjust = 0.5),
-        text = element_text(size = 12, family = "serif"),
-        axis.text.x = element_text(size = 12, color = "black"),
-        axis.text.y = element_text(color = "black"))
 
 # Prepare data to visualize
 e <- as.character(unique(free_long1$ethnicity))
@@ -178,6 +168,18 @@ prototypes <- list(asian_em$n, asian_hm$n, black_em$n, black_hm$n,
 names(prototypes) <- c("asian_em", "asian_hm", "black_em", "black_hm",
                        "latino_em", "latino_hm", "white_em", "white_hm")
 
+# Construct the APA theme
+apa_theme <- theme_bw() +
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.border = element_blank(),
+        axis.line = element_line(),
+        plot.title = element_text(hjust = 0.5),
+        text = element_text(size = 12, family = "sans"),
+        axis.text.x = element_text(color = "black"),
+        axis.text.y = element_text(color = "black"),
+        axis.title = element_text(face = "bold"))
+
 # Create visualization
 figure_hypothesis_3 <- map(prototypes, psych::describe) %>%
   bind_rows() %>%
@@ -200,12 +202,77 @@ figure_hypothesis_3 <- map(prototypes, psych::describe) %>%
     expand_limits(y = c(0, 2.5)) +
     scale_y_continuous(breaks = seq(0, 2.5, 0.5), expand = c(0, 0)) +
     guides(linetype = guide_legend("")) +
-    labs(x = "", y = "Preference for Prototype") +
+    labs(x = "Ethnicity", y = "Preference for Prototype") +
     apa_theme +
     theme(legend.position = c(0.16, 0.99))
 
 # Save plot
 ggsave("data/results/figure_preference-for-prototype.png",
-       plot = figure_hypothesis_3, width = 5, height = 3)
+       plot = figure_hypothesis_3, width = 6, height = 4)
 
 # HYPOTHESIS 4 ------------------------------------------------------------
+
+# Split on between-subjects variable
+Asian <- free_long1 %>%
+  filter(participant_ethnic == "Asian")
+
+Black <- free_long1 %>%
+  filter(participant_ethnic == "Black")
+
+Latino <- free_long1 %>%
+  filter(participant_ethnic == "Latino")
+
+White <- free_long1 %>%
+  filter(participant_ethnic == "White")
+
+# Pairwise comparisons among Asians
+with(Asian, pairwise.t.test(n,
+                            ethnicity,
+                            paired = TRUE,
+                            p.adjust.method = "bonferroni"))
+
+Asian %>%
+  group_by(ethnicity) %>%
+  summarize(M = mean(n),
+            SD = sd(n)) %>%
+  arrange(desc(M)) 
+
+# Pairwise comparisons among Blacks
+with(Black, pairwise.t.test(n,
+                            ethnicity,
+                            paired = TRUE,
+                            p.adjust.method = "bonferroni"))
+
+Black %>%
+  group_by(ethnicity) %>%
+  summarize(M = mean(n),
+            SD = sd(n)) %>%
+  arrange(desc(M)) 
+
+# Pairwise comparisons among Latinos
+with(Latino, pairwise.t.test(n,
+                            ethnicity,
+                            paired = TRUE,
+                            p.adjust.method = "bonferroni"))
+
+Latino %>%
+  group_by(ethnicity) %>%
+  summarize(M = mean(n),
+            SD = sd(n)) %>%
+  arrange(desc(M)) 
+
+# Pairwise comparisons among Whites
+with(White, pairwise.t.test(n,
+                            ethnicity,
+                            paired = TRUE,
+                            p.adjust.method = "bonferroni"))
+
+White %>%
+  group_by(ethnicity) %>%
+  summarize(M = mean(n),
+            SD = sd(n)) %>%
+  arrange(desc(M)) 
+
+# Total number of participants in each group
+forced %>%
+  count(ethnicity)

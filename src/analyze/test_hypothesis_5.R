@@ -80,9 +80,10 @@ apa_theme <- theme_bw() +
         panel.border = element_blank(),
         axis.line = element_line(),
         plot.title = element_text(hjust = 0.5),
-        text = element_text(size = 12, family = "serif"),
-        axis.text.x = element_text(size = 12, color = "black"),
-        axis.text.y = element_text(color = "black"))
+        text = element_text(size = 12, family = "sans"),
+        axis.text.x = element_text(color = "black"),
+        axis.text.y = element_text(color = "black"),
+        axis.title = element_text(face = "bold"))
 
 # Visualize the plot
 figure_hypothesis_5 <- ggplot(si_and_ethnicity, aes(x = ethnicity, y = si_score)) +
@@ -94,4 +95,4 @@ figure_hypothesis_5 <- ggplot(si_and_ethnicity, aes(x = ethnicity, y = si_score)
 
 # Save plot
 ggsave("data/results/figure_si-scores-vs-ethnicity.png", plot = figure_hypothesis_5,
-       width = 5, height = 3)
+       width = 6, height = 4)

@@ -1,0 +1,13 @@
+rater,prototype,fem_masc,thin_musc,hairless_hairy,sex_position,ethnicity,age_range
+1,white-hm-04,7,6,4,mostly top,white,30-32
+1,white-hm-02,8,9,2,only top,white,33-35
+1,white-hm-01,9,5,6,mostly bottom,white,33-35
+1,latino-hm-01,6,4,7,mostly top,latino,24-26
+1,latino-em-04,5,5,1,bottom,latino,18-20
+1,latino-hm-02,7,6,5,only top,latino,30-32
+2,white-hm-04,8,7,2,mostly bottom,white,24-26
+2,white-hm-02,9,9,2,only top,white,27-29
+2,white-hm-01,8,6,7,vers,white,30-32
+2,latino-hm-01,7,4,8,mostly top,latino,21-23
+2,latino-em-04,7,5,1,mostly top,latino,18-20
+2,latino-hm-02,8,6,5,mostly top,latino,30-32
