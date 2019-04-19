@@ -2,6 +2,7 @@
 library(tidyverse)
 library(car)
 library(psych)
+library(lsr)
 
 # Import
 forced <- read_csv("data/forced_response.csv")
@@ -42,6 +43,9 @@ si_and_ethnicity %>%
 si_aov <- aov(si_score ~ ethnicity, data = si_and_ethnicity)
 options(contrasts = c("contr.sum", "contr.poly"))
 Anova(si_aov, type = "III")
+
+# Effect size, eta-squared
+etaSquared(si_aov, type = 3, anova = TRUE)
 
 # Means and SD by ethnicity
 (si_desc <- si_and_ethnicity %>%

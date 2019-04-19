@@ -21,8 +21,23 @@ forced %>%
   mutate(prop = n / 348)
 
 # Chi-square test of independence
-forced %>%
+sex_table <- forced %>%
   select(sex_position, ethnicity) %>%
   filter(sex_position != "No sex") %>%
-  table() %>%
-  chisq.test()
+  table()
+
+chisq.test(sex_table)
+
+# Effect size - Cramer's V
+
+# Total sample size
+n <- sum(sex_table)
+
+# Minimum of the number of rows and the number of columns
+q <- min(nrow(sex_table), ncol(sex_table))
+
+# Chi-square variable
+chi2 <- unname(chisq.test(sex_table)$statistic)
+
+# Cramer's V
+sqrt(chi2 / (n * (q - 1)))
