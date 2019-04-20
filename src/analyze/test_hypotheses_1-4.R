@@ -1,4 +1,5 @@
 # Dependencies
+library(Rmisc)
 library(tidyverse)
 library(ez)
 library(broom)
@@ -127,6 +128,9 @@ free_long1 %>%
   summarize(M = mean(n),
             SD = sd(n))
 
+# Confidence intervals
+group.CI(n ~ masculinity, data = free_long1, ci = 0.95)
+
 # Significant?
 pairwise.t.test(free_long1$n, free_long1$masculinity, paired = TRUE)
 
@@ -137,7 +141,10 @@ free_long1 %>%
   group_by(ethnicity, masculinity) %>%
   summarize(M = mean(n),
             SD = sd(n)) %>%
-  arrange(desc(M)) 
+  arrange(desc(M))
+
+# Confidence intervals
+group.CI(n ~ masculinity * ethnicity, data = free_long1, ci = 0.95)
 
 # Significant?
 pairwise.t.test(free_long1$n,
@@ -235,7 +242,10 @@ Asian %>%
   group_by(ethnicity) %>%
   summarize(M = mean(n),
             SD = sd(n)) %>%
-  arrange(desc(M)) 
+  arrange(desc(M))
+
+# Confidence intervals
+group.CI(n ~ ethnicity, data = Asian, ci = 0.95)
 
 # Pairwise comparisons among Blacks
 with(Black, pairwise.t.test(n,
@@ -249,6 +259,9 @@ Black %>%
             SD = sd(n)) %>%
   arrange(desc(M)) 
 
+# Confidence intervals
+group.CI(n ~ ethnicity, data = Black, ci = 0.95)
+
 # Pairwise comparisons among Latinos
 with(Latino, pairwise.t.test(n,
                             ethnicity,
@@ -259,7 +272,10 @@ Latino %>%
   group_by(ethnicity) %>%
   summarize(M = mean(n),
             SD = sd(n)) %>%
-  arrange(desc(M)) 
+  arrange(desc(M))
+
+# Confidence intervals
+group.CI(n ~ ethnicity, data = Latino, ci = 0.95)
 
 # Pairwise comparisons among Whites
 with(White, pairwise.t.test(n,
@@ -272,6 +288,9 @@ White %>%
   summarize(M = mean(n),
             SD = sd(n)) %>%
   arrange(desc(M)) 
+
+# Confidence intervals
+group.CI(n ~ ethnicity, data = White, ci = 0.95)
 
 # Total number of participants in each group
 forced %>%

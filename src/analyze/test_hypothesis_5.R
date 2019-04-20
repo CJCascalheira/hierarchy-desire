@@ -1,4 +1,5 @@
 # Dependencies
+library(Rmisc)
 library(tidyverse)
 library(car)
 library(psych)
@@ -55,6 +56,9 @@ etaSquared(si_aov, type = 3, anova = TRUE)
 
 # Precise means
 si_desc$M
+
+# Confidence intervals
+group.CI(si_score ~ ethnicity, data = si_and_ethnicity, ci = 0.95)
 
 # Pairwise t-tests with Bonferroni correction
 pairwise.t.test(si_and_ethnicity$si_score, si_and_ethnicity$ethnicity,
